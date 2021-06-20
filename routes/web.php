@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
- 
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+//posts route 
 
 Route::get('/posts', [PostsController::class, 'index']);
 Route::post('/posts', [PostsController::class, 'store']);
@@ -29,3 +31,10 @@ Route::get('/posts/create', [PostsController::class, 'create']);
 Route::get('/posts/{post}/edit', [PostsController::class, 'edit']);
 Route::put('/posts/{post}', [PostsController::class, 'update']);
 Route::delete('/posts/{post}', [PostsController::class, 'destroy']);
+
+
+//users route
+
+Route::get('/users', [UserController::class, 'index']);
+
+
