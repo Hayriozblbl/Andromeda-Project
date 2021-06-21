@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,7 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
+        <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -34,8 +34,9 @@
             @endif
 
             <!-- Page Content -->
-            <main>
-             </main>
+            {{-- <main>
+                {{ $slot }}
+            </main> --}}
         </div>
 
         @stack('modals')

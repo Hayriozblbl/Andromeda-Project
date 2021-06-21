@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+
 use Illuminate\Http\Request;
-use App\Models\User;
-class UserController extends Controller
+
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
- 
-
     public function index()
     {
-        $users = \App\Models\User::all();
- 
-         return view('users.index', compact('users'));
+        $country = Country::all();
 
+        return view('country.index', ['country' => $country]);
     }
 
     /**
@@ -28,34 +27,33 @@ class UserController extends Controller
      */
     public function create()
     {
- 
- 
-        return view('users.create');
+        return view('country.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
-        $user = User::create($request->all());
+        $country = Country::create($request->all());
  
-        return redirect()->route('users.index');
+        return redirect()->route('country.index');
     }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Country $country)
     {
- 
-        $user->load('roles');
+         return view('country.show', compact('country'));
 
-        return view('users.show', compact('user'));
+
     }
 
     /**
@@ -64,12 +62,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Country $country)
     {
- 
-        $user->load('roles');
+        $country->all();
 
-        return view('users.edit', compact('user'));    }
+        return view('country.edit', compact('country'));  
+
+    }
 
     /**
      * Update the specified resource in storage.
@@ -78,13 +77,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, Country $country)
     {
-        $user->update($request->all());
+        $country->update($request->all());
  
-        return redirect()->route('users.index');
+        return redirect()->route('country.index');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -92,10 +90,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Country $country)
     {
- 
-        $user->delete();
+        $country->delete();
 
         return back();
     }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
+//     return view('home');
+// })->name('home');
+Route::get('logout', function ()
+{
+    auth()->logout();
+    Session()->flush();
+
+    return Redirect::to('/');
+})->name('logout');
 
 //posts route 
 
@@ -37,8 +45,15 @@ Route::delete('/posts/{post}', [PostsController::class, 'destroy']);
 
 Route::get('/users', [UserController::class, 'index']);
 Route::delete('users/destroy', 'UsersController@Destroy')->name('users.Destroy');
+Route::resource('users', UserController::class);
 
- Route::resource('users', UserController::class);
+Route::get('/country', [CountryController::class, 'index']);
+// Route::delete('users/destroy', 'UsersController@Destroy')->name('users.Destroy');
+  Route::resource('country', CountryController::class);
+
+
+
+//verify Email
 
 Auth::routes(['verify' => true]);
 

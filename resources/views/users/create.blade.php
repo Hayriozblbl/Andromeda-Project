@@ -3,8 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.user.title_singular') }}
-    </div>
+Create    </div>
 
     <div class="card-body">
         <form action="{{ route("users.store") }}" method="POST" enctype="multipart/form-data">
@@ -17,9 +16,7 @@
                         {{ $errors->first('name') }}
                     </em>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.user.fields.name_helper') }}
-                </p>
+                
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                 <label for="email">Email*</label>
@@ -29,9 +26,7 @@
                         {{ $errors->first('email') }}
                     </em>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.user.fields.email_helper') }}
-                </p>
+              
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                 <label for="password"> User Password</label>
@@ -41,9 +36,7 @@
                         {{ $errors->first('password') }}
                     </em>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.user.fields.password_helper') }}
-                </p>
+                 
             </div>
          
             <div>
