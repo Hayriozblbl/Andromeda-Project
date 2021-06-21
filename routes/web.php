@@ -36,7 +36,9 @@ Route::delete('/posts/{post}', [PostsController::class, 'destroy']);
 //users route
 
 Route::get('/users', [UserController::class, 'index']);
+Route::delete('users/destroy', 'UsersController@Destroy')->name('users.Destroy');
 
+ Route::resource('users', UserController::class);
 
 Auth::routes(['verify' => true]);
 

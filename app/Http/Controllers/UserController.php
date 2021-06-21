@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class UserController extends Controller
 {
     /**
@@ -11,9 +11,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+ 
+
     public function index()
     {
-        return view('users.index');
+        $users = \App\Models\User::all();
+ 
+         return view('users.index', compact('users'));
+
     }
 
     /**
@@ -23,29 +28,34 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+ 
+ 
+        return view('users.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create($request->all());
+ 
+        return redirect()->route('sers.index');
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+ 
+        $user->load('roles');
+
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -54,10 +64,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
-    }
+ 
+        $user->load('roles');
+
+        return view('users.edit', compact('user'));    }
 
     /**
      * Update the specified resource in storage.
@@ -66,10 +78,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->all());
+ 
+        return redirect()->route('users.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -77,8 +92,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+ 
+        $user->delete();
+
+        return back();
     }
 }

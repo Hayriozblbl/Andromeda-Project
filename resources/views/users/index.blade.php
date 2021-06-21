@@ -1,30 +1,88 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.admin')
+@section('content')
+     <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route("users.create") }}">
+Add User        </a>
+        </div>
+    </div>
+ <div class="card">
+    <div class="card-header">
+Users Lisst    </div>
 
-        <title>Users</title>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-User">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-        <!-- TailwindCSS -->
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+                        </th>
+                        <th>
+                          Id
+                        </th>
+                        <th>
+                            Name    
+                    </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Email Verified At
+                        </th>
+   
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $key => $user)
+                        <tr data-entry-id="{{ $user->id }}">
+                            <td>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <style>
-            body {
-                font-family: 'Nunito';
-            }
-        </style>
+                            </td>
+                            <td>
+                                {{ $user->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->email ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->email_verified_at ?? '' }}
+                            </td>
+                             
+                            <td>
+                                     <a class="btn btn-xs btn-primary" href="{{ route('users.show', $user->id) }}">
+                                      View
+                                    </a>
+ 
+                                     <a class="btn btn-xs btn-info" href="{{ route('users.edit', $user->id) }}">
+                                  Edit
+                                    </a>
+ 
+                                     <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are You Sure?? :(');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                    </form>
+ 
+                            </td>
 
-        @livewireStyles
-    </head>
-    <body>
-        <div class="container mx-auto">
-            <h1 class="text-3xl text-center my-10">Users</h1>
-            <livewire:users-table>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
-        @livewireScripts
-    </body>
-</html>
+
+    </div>
+</div>
+@endsection
+@section('scripts')
+@parent
+ 
+@endsection
