@@ -1,9 +1,14 @@
 @extends('layouts.admin')
 @section('content')
      <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <a class="btn btn-success" href="{{ route("country.create") }}">
 Add Country        </a>
+        </div>
+        <div class="col-lg-6">
+            <a class="btn btn-primary" href="{{ url()->previous() }}
+                ">
+Back To       </a>
         </div>
     </div>
  <div class="card">

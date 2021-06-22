@@ -51,6 +51,8 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
+
+        $country->all();
          return view('country.show', compact('country'));
 
 
